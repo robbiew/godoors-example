@@ -109,6 +109,7 @@ func main() {
 			gd.ClearScreen()
 			fmt.Println(gd.BgBlue + gd.White + " White Text on Blue " + gd.Reset)
 			fmt.Println(gd.BgRed + gd.RedHi + " Red Text on Bright Red " + gd.Reset)
+			gd.PrintPipeColor("|04Hello |02I contain |03Pipe |06codes...|07", gd.White)
 			gd.Pause()
 		}
 
