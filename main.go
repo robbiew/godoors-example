@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"flag"
 	"fmt"
 	"os"
@@ -52,11 +53,11 @@ func main() {
 	gd.MoveCursor(0, 0)
 
 	// Exit if no ANSI capabilities (sorry!)
-	// if u.Emulation != 1 {
-	// 	fmt.Println("Sorry, ANSI is required to use this...")
-	// 	time.Sleep(time.Duration(2) * time.Second)
-	// 	os.Exit(0)
-	// }
+	if u.Emulation != 1 {
+		fmt.Println("Sorry, ANSI is required to use this...")
+		time.Sleep(time.Duration(2) * time.Second)
+		os.Exit(0)
+	}
 
 	// A reliable keyboard library to detect key presses
 	if err := keyboard.Open(); err != nil {
@@ -96,6 +97,7 @@ func main() {
 		if string(char) == "q" || string(char) == "Q" || key == keyboard.KeyEsc {
 			break
 		}
+
 		if string(char) == "a" || string(char) == "A" {
 			shortTimer.Stop()
 			gd.ClearScreen()
@@ -103,6 +105,7 @@ func main() {
 			gd.PrintAnsi("mx-sm.ans", 40)
 			gd.Pause()
 		}
+
 		if string(char) == "c" || string(char) == "C" {
 			shortTimer.Stop()
 			fmt.Println("\r\nCOLOR TEST:")
@@ -123,6 +126,7 @@ func main() {
 			fmt.Fprintf(os.Stdout, "Time Left: %v\r\n", u.TimeLeft)
 			gd.Pause()
 		}
+
 		if string(char) == "f" || string(char) == "F" {
 			shortTimer.Stop()
 			gd.ClearScreen()
@@ -136,19 +140,24 @@ func main() {
 			fmt.Println(gd.Ibmthin + "IBM CP437 Thin")
 			gd.Pause()
 		}
+
 		// Modal test
 		if string(char) == "m" || string(char) == "M" {
-			shortTimer.Stop()
+			gd.ClearScreen()
 			mText := "Continue? Y/n"
-			mLen := len(mText)
-			gd.Modal(mText, mLen, u.H, u.W)
+			mLen := 14
+			gd.Modal("modalBg.ans", mText, mLen)
+
 		}
+
 		if string(char) == "t" || string(char) == "T" {
 			shortTimer.Stop()
 			gd.ClearScreen()
 			fmt.Println("\r\nTERMINAL SIZE DETECT:")
 			fmt.Fprintf(os.Stdout, "Height: %v\r\n", u.H)
 			fmt.Fprintf(os.Stdout, "Width: %v\r\n", u.W)
+			fmt.Fprintf(os.Stdout, "Modal Height: %v\r\n", u.ModalH)
+			fmt.Fprintf(os.Stdout, "Modal Width: %v\r\n", u.ModalW)
 			gd.Pause()
 		}
 		gd.ClearScreen()
