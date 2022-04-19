@@ -13,6 +13,13 @@ import (
 
 var (
 	DropPath string
+
+	// GoDoors used "embed" for including ansi files - see https://pkg.go.dev/embed
+
+	//go:embed modalBg.ans
+	Modal string
+	//go:embed mx-sm.ans
+	Smooth string
 )
 
 func init() {
@@ -102,7 +109,7 @@ func main() {
 			shortTimer.Stop()
 			gd.ClearScreen()
 			fmt.Println("\r\nART TEST:")
-			gd.PrintAnsi("mx-sm.ans", 40)
+			gd.PrintAnsiLoc(Smooth, 0, 0)
 			gd.Pause()
 		}
 
@@ -146,7 +153,7 @@ func main() {
 			gd.ClearScreen()
 			mText := "Continue? Y/n"
 			mLen := 14
-			gd.Modal("modalBg.ans", mText, mLen)
+			gd.Modal(Modal, mText, mLen)
 
 		}
 

@@ -1,4 +1,4 @@
 #!/bin/sh
 export TERM=xterm
-cd /home/bbs/go/src/github.com/robbiew/godoors-example
-./godoors-example -path /bbs/temp/$1/
+cd /home/robbiew/Documents/GitHub/godoors-example
+./godoors-example -path $1
